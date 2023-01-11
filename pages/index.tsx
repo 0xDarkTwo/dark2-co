@@ -1,4 +1,3 @@
-import { ethData } from './types';
 import { useRef } from "react";
 import Head from 'next/head';
 import { useFrame, Canvas } from '@react-three/fiber'
@@ -9,6 +8,11 @@ import styles from '../styles/Home.module.css'
 import { Inter } from '@next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
+
+interface ethData {
+  ethGas: number,
+  ethBlock: number
+}
 
 export async function getServerSideProps() {
   async function getEthGas() {
