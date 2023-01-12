@@ -77,12 +77,16 @@ export default function Home({ethBlock, ethGas}: ethData) {
     )
   }
 
+  if (typeof window !== 'undefined') {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }  
+
   return (
     <>
       <Head>
         <title>Dark&#178;</title>
-        <meta content="width=device-width, height=device-height, initial-scale=1.1" name="viewport" />
-        <meta name="description" content="I think therefore I am." />
+        <meta name="description" content="Do Things Differently." />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
       </Head>
       <main className={inter.className}>
@@ -90,15 +94,17 @@ export default function Home({ethBlock, ethGas}: ethData) {
         <Scene />
       </div>
       <div className={styles.fg}>
-        <h1>Dark Two</h1>
-        <p>Do things differently.</p>
-        <div className={styles.links}>
-          <a href='https://twitter.com/0xDarkTwo' target="_blank" rel="noreferrer noopener"><Image src='/twitter.svg' alt='twitter' height={30} width={30} /></a>
-          <a href='https://github.com/0xDarkTwo' target="_blank" rel="noreferrer noopener"><Image src='/github.svg' alt='github' height={30} width={30} /></a>
-          <a href='https://discordapp.com/users/1034697215991619584' target="_blank" rel="noreferrer noopener"><Image src='/discord.svg' alt='metamask' height={30} width={30} /></a>
+        <div className= {styles.top}>
+          <h1>Dark Two</h1>
+          <p>Do things differently.</p>
+          <div className={styles.links}>
+            <a href='https://twitter.com/0xDarkTwo' target="_blank" rel="noreferrer noopener"><Image src='/twitter.svg' alt='twitter' height={30} width={30} /></a>
+            <a href='https://github.com/0xDarkTwo' target="_blank" rel="noreferrer noopener"><Image src='/github.svg' alt='github' height={30} width={30} /></a>
+            <a href='https://discordapp.com/users/1034697215991619584' target="_blank" rel="noreferrer noopener"><Image src='/discord.svg' alt='metamask' height={30} width={30} /></a>
+          </div>
         </div>
 
-        <div className= {styles.stats}>
+        <div className={styles.bottom}>
           <div className={styles.labels}>
             <Image src='/eth.svg' height={14} width={14} alt='ETH'/>
             <span>&nbsp;Block:&nbsp;</span>
