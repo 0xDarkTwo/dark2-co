@@ -13,7 +13,7 @@ export default function Menu() {
   return (
     <>
       <Head>
-        <title>Dark&#178; - Menu</title>
+        <title>Dark&#178; - Projects</title>
         <meta name="description" content="Do Things Differently." />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </Head>

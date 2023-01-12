@@ -124,8 +124,8 @@ export default function Home({ ethBlock, ethGas }: ethData) {
         </div>
 
         <div className={styles.right}>
-          <a href="/menu">
-            <p className={styles.clickable}>[Menu]</p>
+          <a href="/projects">
+            <p className={styles.clickable}>[Projects]</p>
           </a>
         </div>
 
