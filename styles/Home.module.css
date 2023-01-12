@@ -1,3 +1,46 @@
+.bg {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+}
+
+.fg {
+  position: absolute;
+  z-index: 15;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 20;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 26, 26, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.top {
+  padding: 15px;
+  position: absolute;
+}
+
+.bottom {
+  padding: 15px;
+  position: absolute;
+  bottom: 0;
+}
+
+.right {
+  padding: 15px;
+  position: absolute;
+  right: 0;
+  line-height: 0;
+}
+
 .data {
   display: inline-block;
   line-height: 2rem;
@@ -17,39 +60,6 @@
 
 .links a {
   margin-right: 25px;
-}
-
-.bg {
-  position: fixed;
-  z-index: 9;
-  width: 100%;
-  height: 100%;
-}
-
-.fg {
-  position: absolute;
-  z-index: 15;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-}
-
-.top {
-  padding: 15px;
-  position: absolute;
-}
-
-.bottom {
-  padding: 15px;
-  position: absolute;
-  bottom: 0;
-}
-
-.right {
-  padding: 15px;
-  position: absolute;
-  right: 0;
-  line-height: 0;
 }
 
 .clickable {

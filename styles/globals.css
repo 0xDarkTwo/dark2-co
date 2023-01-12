@@ -5,10 +5,9 @@ main {
   margin: 0;
   background-color: #1a1a1a;
   color: #e5e5e5;
+  width: 100vw;
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
-  width: 100vw;
-  top: 0;
 }
 
 a {
