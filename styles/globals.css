@@ -3,7 +3,6 @@ body,
 main {
   padding: 0;
   margin: 0;
-  font-family: Inter, -apple-system, Helvetica Neue, sans-serif;
   background-color: #1a1a1a;
   color: #e5e5e5;
   height: 100vh;
@@ -13,6 +12,8 @@ main {
 }
 
 a {
+  padding: 0;
+  margin: 0;
   color: inherit;
   text-decoration: none;
 }

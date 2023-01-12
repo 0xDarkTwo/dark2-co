@@ -14,33 +14,29 @@ interface ethData {
   ethBlock: number
 }
 
+export const revalidate = 300;
+
 export async function getServerSideProps() {
-  async function getEthGas() {
-    const options = {
-        method: 'POST',
-        headers: {accept: 'application/json', 'content-type': 'application/json'},
-        body: JSON.stringify({id: 1, jsonrpc: '2.0', method: 'eth_gasPrice'}),
-        next: { revalidate: 300 } 
-    };
-    const res = await (await fetch(`https://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`, options, )).json()
-    return Math.floor(parseInt(res.result, 16)/1000000000);
-  }
-  
-  async function getEthBlock() {
-    const options = {
-        method: 'POST',
-        headers: {accept: 'application/json', 'content-type': 'application/json'},
-        body: JSON.stringify({id: 1, jsonrpc: '2.0', method: 'eth_blockNumber'}),
-        next: { revalidate: 300 } 
-    };
-    const res = await (await fetch(`https://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`, options)).json()
-    return parseInt(res.result, 16);
-  }
+  const options1 = {
+    method: 'POST',
+    headers: {accept: 'application/json', 'content-type': 'application/json'},
+    body: JSON.stringify({id: 1, jsonrpc: '2.0', method: 'eth_gasPrice'}),
+  };
+  const options2 = {
+    method: 'POST',
+    headers: {accept: 'application/json', 'content-type': 'application/json'},
+    body: JSON.stringify({id: 1, jsonrpc: '2.0', method: 'eth_blockNumber'})
+  };
+
+  const reqArr = [fetch(`https://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`, options1), fetch(`https://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`, options2)]
+  const fulfilledReq = await Promise.all(reqArr)
+  const jsonArr = [fulfilledReq[0].json(), fulfilledReq[1].json()]
+  const fulfilled = await Promise.all(jsonArr)
 
   return {
     props: {
-      ethBlock: await getEthBlock(),
-      ethGas: await getEthGas()
+      ethGas: Math.floor(parseInt(fulfilled[0].result, 16)/1000000000),
+      ethBlock: parseInt(fulfilled[1].result, 16)
     },
   };
 }
@@ -50,8 +46,8 @@ export default function Home({ethBlock, ethGas}: ethData) {
   const Model = () => {
     const ref: { current: any | null } = useRef()
     useFrame((state) => {
-        ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, (state.mouse.x * Math.PI) / -5, 0.05)
-        ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, (state.mouse.y * Math.PI) / 5, 0.05)
+        ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, (state.mouse.x * Math.PI) / -5, 0.1)
+        ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, (state.mouse.y * Math.PI) / 5, 0.1)
     })
     const gltf = useGLTF('/webgl/dark2-logo-static.gltf', true)
     return (
@@ -70,8 +66,8 @@ export default function Home({ethBlock, ethGas}: ethData) {
     return (
       <Canvas camera={{ position: [0, 0, 20], near: 5, far: 30 }}>
         <color attach="background" args={['#1a1a1a']} />
-        <ambientLight intensity={0.8} />
-        <directionalLight castShadow position={[0, 12, 12]} intensity={5} />
+        <directionalLight castShadow position={[0, 12, 12]} intensity={1} color={'#e5e5e5'} />
+        <ambientLight intensity={0.4} color={'#e5e5e5'}/>
         <Model/>
       </Canvas>
     )
@@ -98,10 +94,14 @@ export default function Home({ethBlock, ethGas}: ethData) {
           <h1>Dark Two</h1>
           <p>Do things differently.</p>
           <div className={styles.links}>
-            <a href='https://twitter.com/0xDarkTwo' target="_blank" rel="noreferrer noopener"><Image src='/twitter.svg' alt='twitter' height={30} width={30} /></a>
-            <a href='https://github.com/0xDarkTwo' target="_blank" rel="noreferrer noopener"><Image src='/github.svg' alt='github' height={30} width={30} /></a>
-            <a href='https://discordapp.com/users/1034697215991619584' target="_blank" rel="noreferrer noopener"><Image src='/discord.svg' alt='metamask' height={30} width={30} /></a>
+            <a className={styles.clickable} href='https://twitter.com/0xDarkTwo' target="_blank" rel="noreferrer noopener"><Image src='/twitter.svg' alt='twitter' height={30} width={30} /></a>
+            <a className={styles.clickable} href='https://github.com/0xDarkTwo' target="_blank" rel="noreferrer noopener"><Image src='/github.svg' alt='github' height={30} width={30} /></a>
+            <a className={styles.clickable} href='https://discordapp.com/users/1034697215991619584' target="_blank" rel="noreferrer noopener"><Image src='/discord.svg' alt='metamask' height={30} width={30} /></a>
           </div>
+        </div>
+
+        <div className= {styles.right}>
+          <p>[Menu]</p>
         </div>
 
         <div className={styles.bottom}>

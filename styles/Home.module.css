@@ -1,16 +1,14 @@
 .data {
   display: inline-block;
   line-height: 2rem;
-  border-radius: 10px;
   padding-left: 0;
 }
 
 .labels {
   display: inline-block;
   line-height: 2rem;
-  border-radius: 10px;
-  padding-right: 0;
   text-align: right;
+  padding-right: 0;
 }
 
 .links {
@@ -18,15 +16,7 @@
 }
 
 .links a {
-  pointer-events: all;
-  margin-right: 26px;
-  cursor: pointer;
-  transition: filter 0.3s ease-in-out;
-}
-
-.links a:hover {
-  transition: filter 0.3s ease-in-out;
-  filter: drop-shadow(0px 0px 5px #e5e5e5);
+  margin-right: 25px;
 }
 
 .bg {
@@ -53,4 +43,22 @@
   padding: 15px;
   position: absolute;
   bottom: 0;
+}
+
+.right {
+  padding: 15px;
+  position: absolute;
+  right: 0;
+  line-height: 0;
+}
+
+.clickable {
+  pointer-events: all;
+  cursor: pointer;
+  transition: filter 0.3s ease-in-out;
+}
+
+.clickable:hover {
+  transition: filter 0.3s ease-in-out;
+  filter: drop-shadow(0px 0px 5px #e5e5e5);
 }
