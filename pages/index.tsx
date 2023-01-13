@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, Suspense } from "react";
 import Head from "next/head";
 import { useFrame, Canvas } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
@@ -14,18 +14,18 @@ interface ethData {
   ethBlock: number;
 }
 
-export const revalidate = 300;
-
 export async function getServerSideProps() {
   const options1 = {
     method: "POST",
     headers: { accept: "application/json", "content-type": "application/json" },
     body: JSON.stringify({ id: 1, jsonrpc: "2.0", method: "eth_gasPrice" }),
+    next: { revalidate: 300 }
   };
   const options2 = {
     method: "POST",
     headers: { accept: "application/json", "content-type": "application/json" },
     body: JSON.stringify({ id: 1, jsonrpc: "2.0", method: "eth_blockNumber" }),
+    next: { revalidate: 300 }
   };
   const reqArr = [
     fetch(
@@ -162,7 +162,9 @@ export default function Home({ ethBlock, ethGas }: ethData) {
       </Head>
       <main className={inter.className}>
         <div className={styles.bg}>
-          <Scene />
+          <Suspense>
+            <Scene />
+          </Suspense>
         </div>
         <Foreground />
       </main>
