@@ -1,7 +1,7 @@
 :root {
   --foreground-rgb: 229, 229, 229;
   --background-start-rgb: 26, 26, 26;
-  --background-end-rgb: 40, 40, 40;
+  --background-end-rgb: 75, 75, 75;
 }
 
 * {
