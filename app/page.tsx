@@ -3,9 +3,6 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import Model from "./components/model";
 import Projects from "./components/projects"
-import { Inter } from "@next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
 
 async function getData() {
   const options1 = {
@@ -107,14 +104,12 @@ export default async function Home() {
 
   return (
     <>
-      <main className={inter.className}>
-        <div className={styles.bg}>
-          <Suspense>
-            <Model />
-          </Suspense>
-        </div>
-        <Foreground />
-      </main>
+      <div className={styles.bg}>
+        <Suspense>
+          <Model />
+        </Suspense>
+      </div>
+      <Foreground />
     </>
   );
 }

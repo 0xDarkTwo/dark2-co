@@ -10,30 +10,30 @@ export default function Projects() {
     const customStyles = {
         content: {
           zIndex: 101,
-          top: 'auto',
-          left: '50%',
-          right: 'auto',
-          bottom: '0%',
-          marginRight: '-50%',
-          transform: 'translate(-50%, 0%)',
-          'border-radius': '0px',
-          'border-top-left-radius': '30px',
-          'border-top-right-radius': '30px',
-          'border-color': '#222222',
-          'border-width': '2px',
+          top: '0',
+          left: '0',
           display: 'flex',
           'flex-direction': 'column',
-          'justify-content': 'space-between',
-          'align-items': 'center',
+          'justify-content': 'top',
+          'align-items': 'left',
+          gap: '40px',
           'font-weight': '500',
-          height: '160px',
-          width: '100%',
-          padding: '20px',
-          background: '#151724',
-          color: 'white',
-          'box-shadow': '0 0 10px rgba(0, 0, 0, 0.6)'
+          padding: '40px',
+          color: 'rgb(229, 229, 229)',
+          background: 'transparent',
+          width: 'auto',
+          height: 'auto',
+          inset: 'unset',
+          border: 'none'
         },
-        overlay: {zIndex: 100}
+        overlay: {
+            zIndex: 100,
+            background: 'rgba(26, 26, 26, 0.97)',
+            display: 'flex',
+            'flex-direction': 'row',
+            'justify-content': 'center',
+            'align-items': 'top',
+        },
     };
 
     function openMenu() {
@@ -53,9 +53,12 @@ export default function Projects() {
                 closeTimeoutMS={200}
                 ariaHideApp={false}
             >
-                <a href='/'>Solutions</a>
-                <a href='/'>Documentation</a>
-                <a href='/'>Request Quote</a>
+                <a href='https://td.dark2.co' className={styles.clickable}>
+                    <span>
+                        <h2><b>TD</b></h2>
+                        <small>A Minimalist Twitter Video Downloader</small>
+                    </span>
+                </a>
             </Modal>
         </>
     )
