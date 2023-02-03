@@ -1,0 +1,11 @@
+.clickable {
+  pointer-events: all;
+  cursor: pointer;
+  transition: filter 200ms ease-out;
+}
+
+.clickable:hover {
+  transition: filter 200ms ease-out;
+  filter: drop-shadow(0px 0px 5px #e5e5e5);
+}
+

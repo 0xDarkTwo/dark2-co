@@ -38,7 +38,6 @@
   padding: 15px;
   position: absolute;
   right: 0;
-  line-height: 0;
 }
 
 .data {
@@ -65,10 +64,10 @@
 .clickable {
   pointer-events: all;
   cursor: pointer;
-  transition: filter 0.3s ease-in-out;
+  transition: filter 200ms ease-out;
 }
 
 .clickable:hover {
-  transition: filter 0.3s ease-in-out;
+  transition: filter 200ms ease-out;
   filter: drop-shadow(0px 0px 5px #e5e5e5);
 }

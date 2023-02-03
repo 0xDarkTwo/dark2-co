@@ -1,31 +1,24 @@
-import { useRef, Suspense } from "react";
-import Head from "next/head";
-import { useFrame, Canvas } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
-import * as THREE from "three";
+import { Suspense } from "react";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import styles from "./page.module.css";
+import Model from "./components/model";
+import Projects from "./components/projects"
 import { Inter } from "@next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-interface ethData {
-  ethGas: number;
-  ethBlock: number;
-}
-
-export async function getServerSideProps() {
+async function getData() {
   const options1 = {
     method: "POST",
     headers: { accept: "application/json", "content-type": "application/json" },
     body: JSON.stringify({ id: 1, jsonrpc: "2.0", method: "eth_gasPrice" }),
-    next: { revalidate: 300 }
+    next: { revalidate: 300 },
   };
   const options2 = {
     method: "POST",
     headers: { accept: "application/json", "content-type": "application/json" },
     body: JSON.stringify({ id: 1, jsonrpc: "2.0", method: "eth_blockNumber" }),
-    next: { revalidate: 300 }
+    next: { revalidate: 300 },
   };
   const reqArr = [
     fetch(
@@ -42,52 +35,13 @@ export async function getServerSideProps() {
   const fulfilled = await Promise.all(jsonArr);
 
   return {
-    props: {
-      ethGas: Math.floor(parseInt(fulfilled[0].result, 16) / 1000000000),
-      ethBlock: parseInt(fulfilled[1].result, 16),
-    },
+    ethGas: Math.floor(parseInt(fulfilled[0].result, 16) / 1000000000),
+    ethBlock: parseInt(fulfilled[1].result, 16),
   };
 }
 
-export default function Home({ ethBlock, ethGas }: ethData) {
-  const Model = () => {
-    const ref: { current: any | null } = useRef();
-    useFrame((state) => {
-      ref.current.rotation.y = THREE.MathUtils.lerp(
-        ref.current.rotation.y,
-        (state.mouse.x * Math.PI) / -5,
-        0.1
-      );
-      ref.current.rotation.x = THREE.MathUtils.lerp(
-        ref.current.rotation.x,
-        (state.mouse.y * Math.PI) / 5,
-        0.1
-      );
-    });
-    const gltf = useGLTF("/webgl/dark2-logo-static.gltf", true);
-    return (
-      <mesh ref={ref}>
-        <primitive object={gltf.scene} dispose={null} scale={1} />
-        <meshNormalMaterial attach="material" />
-      </mesh>
-    );
-  };
-
-  const Scene = () => {
-    return (
-      <Canvas camera={{ position: [0, 0, 20], near: 5, far: 30 }}>
-        <color attach="background" args={["#1a1a1a"]} />
-        <directionalLight
-          castShadow
-          position={[0, 12, 12]}
-          intensity={1}
-          color={"#e5e5e5"}
-        />
-        <ambientLight intensity={0.4} color={"#e5e5e5"} />
-        <Model />
-      </Canvas>
-    );
-  };
+export default async function Home() {
+  const { ethBlock, ethGas } = await getData();
 
   const Foreground = () => {
     return (
@@ -124,9 +78,7 @@ export default function Home({ ethBlock, ethGas }: ethData) {
         </div>
 
         <div className={styles.right}>
-          <a href="/projects">
-            <p className={styles.clickable}>[Projects]</p>
-          </a>
+          <Projects/>
         </div>
 
         <div className={styles.bottom}>
@@ -155,15 +107,10 @@ export default function Home({ ethBlock, ethGas }: ethData) {
 
   return (
     <>
-      <Head>
-        <title>Dark&#178;</title>
-        <meta name="description" content="Do Things Differently." />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-      </Head>
       <main className={inter.className}>
         <div className={styles.bg}>
           <Suspense>
-            <Scene />
+            <Model />
           </Suspense>
         </div>
         <Foreground />
