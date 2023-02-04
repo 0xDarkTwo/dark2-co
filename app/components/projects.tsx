@@ -32,7 +32,7 @@ export default function Projects() {
             display: 'flex',
             'flex-direction': 'row',
             'justify-content': 'center',
-            'align-items': 'top',
+            'align-items': 'top'
         },
     };
 
